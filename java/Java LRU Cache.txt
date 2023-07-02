@@ -1,0 +1,88 @@
+Implement a thread safe Least Recently Used (LRU) cache that supports the following operations:
+
+
+
+get(key)
+put(key, value)
+    
+
+The cache should have a specified capacity, and when the number of unique keys exceeds the capacity, the least recently used key should be removed. Make the cache thread-safe using synchronization or concurrency utilities.
+
+
+
+
+
+
+package com.tasks.problem;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+public class LRUCache<K,V> {
+
+    private  ConcurrentLinkedQueue<K> concurrentLinkedQueue = new ConcurrentLinkedQueue<K>();
+
+    private  ConcurrentHashMap<K,V> concurrentHashMap = new ConcurrentHashMap<K, V>();
+
+    private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+
+    
+
+    int maxSize=0;
+
+    public LRUCache(final int MAX_SIZE){
+        this.maxSize=MAX_SIZE;
+    }
+
+    public V get(K key){
+
+       
+        readWriteLock.readLock().lock();
+        try {
+        V v=concurrentHashMap.get(key);
+          if(v!=null){
+              concurrentLinkedQueue.remove(key);
+                concurrentLinkedQueue.add(key);
+          }
+
+
+        //@todo return the appropriate object
+        return v;
+        }finally{
+        	readWriteLock.readLock().unlock();
+        }
+    }
+    
+    public int size() {
+    	readWriteLock.readLock().lock();
+    	
+    	try {
+    		return concurrentHashMap.size();
+    	}
+    	finally{
+        	readWriteLock.readLock().unlock();
+        }
+    }
+
+
+
+    public void put(K key,V value){
+       
+    	readWriteLock.writeLock().lock();
+        try {
+        if(concurrentHashMap.containsKey(key)){
+             concurrentLinkedQueue.remove(key);
+        }
+        else if(concurrentLinkedQueue.size()>=maxSize){
+            K IruKey = concurrentLinkedQueue.poll();
+            concurrentHashMap.remove(IruKey);
+        }
+        concurrentLinkedQueue.add(key);
+        concurrentHashMap.put(key, value);
+        } finally{
+        	readWriteLock.writeLock().unlock();
+        }
+    }
+}

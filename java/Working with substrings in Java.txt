@@ -1,0 +1,81 @@
+Task Description:
+
+You are given a string str, find the length of the longest substring in str without repeating characters. Implement an efficient solution with a time complexity of O(n).
+
+
+
+Example:
+
+Let the given string be “ABDEFGABEF”, the longest substrings without repeating characters here are “BDEFGA” and “DEFGAB”, with length 6. Similarly, for “BBBB” the longest substring is “B”, with length 1.
+
+
+
+package com.tasks.problem;
+
+
+
+
+public class LongestSubstring {
+
+    public static int lengthOfLongestSubstring(String str) {
+
+        String test = "";
+        // Result
+        int maxLength = 0;
+        // Return zero if string is empty
+
+        if (str.isEmpty()) {
+            return 1;
+        }
+
+        // Return one if string length is one
+
+        else if (str.length() == 1) {
+            return 1;
+        }
+
+        for (char c : str.toCharArray()) {
+            String current = String.valueOf(c);
+
+            if (test.contains(current)){
+                maxLength = Math.max(maxLength, test.length());
+                int index = test.indexOf(current);
+                test = test.substring(index + 1);
+            }
+
+            test = test + current;
+        }
+
+ 
+
+            // If string already contains the character
+
+            // Then substring after repeating character
+
+
+
+
+
+            //@todo
+
+           
+
+            //@todo Evaluate the value for maxLength
+
+        maxLength = Math.max(maxLength, test.length());
+        return maxLength;
+
+        //@todo return maxLength
+
+       
+
+    }
+
+    public static void main(String[] args){
+
+        String str = "ABDEFGABEF";
+        System.out.println(lengthOfLongestSubstring(str));
+
+    }
+
+}
