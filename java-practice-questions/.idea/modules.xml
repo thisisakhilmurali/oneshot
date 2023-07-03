@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/credit-card/credit-card.iml" filepath="$PROJECT_DIR$/credit-card/credit-card.iml" />
       <module fileurl="file://$PROJECT_DIR$/even-primes/even-primes.iml" filepath="$PROJECT_DIR$/even-primes/even-primes.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/java-practice-questions.iml" filepath="$PROJECT_DIR$/.idea/java-practice-questions.iml" />
       <module fileurl="file://$PROJECT_DIR$/remove-vowels/remove-vowels.iml" filepath="$PROJECT_DIR$/remove-vowels/remove-vowels.iml" />

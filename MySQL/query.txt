@@ -1,0 +1,45 @@
+Write a SQL query to display details of all students who have scored MARKS within the range 400 and 6000 except those whose MARKS are 1200 and 5236.
+
+SELECT * FROM STUDENTS
+WHERE MARKS BETWEEN 400 AND 6000 AND MARKS NOT IN (1200, 5236);
+
+=========================================================================================================
+SELECT  PRO_NO, PROD_NAME, MANU_DATE,
+case
+WHEN DAYOFWEEK(MANU_DATE)=4
+THEN 
+PROD_PRICE +100
+WHEN DAYOFWEEK(MANU_DATE)=1
+THEN 
+PROD_PRICE +50
+WHEN DAYOFWEEK(MANU_DATE)=7
+THEN 
+PROD_PRICE +700
+ELSE PROD_PRICE +500
+END AS modified_PROD_PRICE
+FROM PRODUCT
+WHERE (case
+WHEN DAYOFWEEK(MANU_DATE)=4 THEN 
+PROD_PRICE +100
+WHEN DAYOFWEEK(MANU_DATE)=1 THEN 
+PROD_PRICE +50
+WHEN DAYOFWEEK(MANU_DATE)=7 THEN 
+PROD_PRICE +700
+ELSE PROD_PRICE +500
+END ) BETWEEN 1000 AND 7000;
+
+========================================================================================================
+SELECT PRO_NO, MAX(PROD_PRICE) 
+FROM PRODUCT
+WHERE SALES_ID BETWEEN 30 AND 5000
+GROUP BY SALES_ID;
+========================================================================================================
+SELECT DISTINCT REV.REV_NAME
+FROM REVIEWER REV
+JOIN MOVIES MOV ON REV.REV_ID = MOV.REV_ID
+WHERE MOV.MOV_NAME IN ('Veg Lollipop', 'Biscuit')
+ORDER BY REV.REV_NAME DESC;
+========================================================================================================
+SELECT EMP_NAME, EMP_SALARY, DEPT_ID FROM EMPLOYEE WHERE EMP_SALARY >=(
+	SELECT EMP_SALARY FROM EMPLOYEE WHERE EMP_NO=103
+);
