@@ -24,8 +24,8 @@ export class TeamService {
     already exist alert "This Player already exist in your team !!"
   */
   addPlayer(player: Player) {
-    const index = this.team.find(p => p.id === player.id)
-    if (index) {
+    const isThereAPlayer = this.team.find(p => p.id === player.id)
+    if (isThereAPlayer) {
       alert("This Player already exist in your team !!");
     }
     else {
